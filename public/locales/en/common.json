@@ -1,0 +1,12 @@
+{
+  "title": "Wellcome Nextjs",
+  "login": "Login",
+  "email": "Email",
+  "password": "Password",
+  "here": "here",
+  "forgotPass": "Forgot Password",
+  "validate": {
+    "requiredField": "This field is required!",
+    "notValidEmail": "Please input a valid email address!"
+  }
+}
