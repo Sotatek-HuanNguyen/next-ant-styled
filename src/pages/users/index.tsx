@@ -1,13 +1,18 @@
+import SeoHead from '@/components/common/seo-header';
+import Users from '@/components/users';
 import { DEFAULT_LOCALE } from '@/constants';
 import AdminLayout from '@/layouts/admin-layout';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
-const DashBoard = () => {
-  const { t } = useTranslation(['common']);
-  return <div>{t('DashBoard')}</div>;
+const UserManagement = () => {
+  return (
+    <>
+      <SeoHead title="User Management" />
+      <Users />
+    </>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
@@ -16,6 +21,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   },
 });
 
-DashBoard.layout = AdminLayout;
+UserManagement.layout = AdminLayout;
 
-export default DashBoard;
+export default UserManagement;

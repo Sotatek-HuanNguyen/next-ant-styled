@@ -104,7 +104,7 @@ export const LoginForm: React.FC = () => {
         <Auth.FooterWrapper>
           <Auth.Text>
             {t('login.noAccount')}{' '}
-            <Link href="/auth/sign-up">
+            <Link href="/auth/register">
               <Auth.LinkText>{t('here', { ns: 'common' })}</Auth.LinkText>
             </Link>
           </Auth.Text>

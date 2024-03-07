@@ -1,5 +1,5 @@
 import { DEFAULT_LOCALE } from '@/constants';
-import AdminLayout from '@/layouts/admin-layout.tsx';
+import AdminLayout from '@/layouts/admin-layout';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
