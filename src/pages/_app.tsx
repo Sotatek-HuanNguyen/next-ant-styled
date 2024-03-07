@@ -33,14 +33,14 @@ function App({ Component, pageProps }: Props) {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <GlobalStyle />
-          <Layout>
-            <NextNProgress />
-            <ConfigProvider theme={getThemeConfig('light')}>
-              <FeedbackProvider>
+          <ConfigProvider theme={getThemeConfig('light')}>
+            <FeedbackProvider>
+              <Layout>
+                <NextNProgress />
                 <Component {...pageProps} />
-              </FeedbackProvider>
-            </ConfigProvider>
-          </Layout>
+              </Layout>
+            </FeedbackProvider>
+          </ConfigProvider>
         </PersistGate>
       </Provider>
     </QueryClientProvider>
