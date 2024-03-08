@@ -17,7 +17,7 @@ const UserManagement = () => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale || DEFAULT_LOCALE, ['common'])),
+    ...(await serverSideTranslations(locale || DEFAULT_LOCALE, ['common', 'users'])),
   },
 });
 

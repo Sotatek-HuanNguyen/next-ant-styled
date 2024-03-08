@@ -1,3 +1,4 @@
+import { BaseCard } from '@/components/common/base-card';
 import { DEFAULT_LOCALE } from '@/constants';
 import AdminLayout from '@/layouts/admin-layout';
 import { GetStaticProps } from 'next';
@@ -7,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 const DashBoard = () => {
   const { t } = useTranslation(['common']);
-  return <div>{t('DashBoard')}</div>;
+  return <BaseCard>{t('DashBoard')}</BaseCard>;
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({

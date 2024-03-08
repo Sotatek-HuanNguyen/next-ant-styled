@@ -1,0 +1,18 @@
+{
+  "userManagement": {
+    "userManagement": "User management",
+    "export": "Export",
+    "search": "Search",
+    "no": "No.",
+    "name": "Name",
+    "kanaName": "Kana Name",
+    "company": "Company",
+    "email": "Email",
+    "gender": "Gender",
+    "birthday": "Birthday",
+    "country": "Country",
+    "phoneNumber": "Phone Number",
+    "magazineSubscription": "Magazine Subscription",
+    "purchaseHistory": "Purchase history"
+  }
+}
