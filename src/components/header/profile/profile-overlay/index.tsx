@@ -1,11 +1,26 @@
+import { useFeedback } from '@/hooks/useFeedback';
+import { removeCredentials } from '@/stores/auth/auth.slice';
+import { useAppDispatch } from '@/stores/hooks';
+import cookies from '@/utils/cookie';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import * as S from './index.styles';
 
 export const ProfileOverlay: React.FC = ({ ...props }) => {
   const { t } = useTranslation('common');
+  const dispatch = useAppDispatch();
+  const { push } = useRouter();
+  const { notification } = useFeedback();
+
+  const handleLogout = () => {
+    cookies.remove('access_token');
+    dispatch(removeCredentials());
+    push('/');
+    notification.success({ message: t('header.logoutSuccess') });
+  };
 
   return (
     <div {...props}>
@@ -14,7 +29,9 @@ export const ProfileOverlay: React.FC = ({ ...props }) => {
       </S.Text>
       <S.ItemsDivider />
       <S.Text>
-        <Link href="/logout">{t('header.logout')}</Link>
+        <Link href="javascript:void(0)" onClick={handleLogout}>
+          {t('header.logout')}
+        </Link>
       </S.Text>
     </div>
   );

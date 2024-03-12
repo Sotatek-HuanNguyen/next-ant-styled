@@ -33,8 +33,7 @@ export default function useAppMutation<
     ...props?.queryOptions,
     mutationFn,
     onError: (error) => {
-      props?.useAppMutationProps &&
-        loadServerErrors({ error: error as unknown as ApiError, ...props.useAppMutationProps });
+      loadServerErrors({ error: error as unknown as ApiError, ...props?.useAppMutationProps });
       return;
     },
   });

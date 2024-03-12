@@ -54,7 +54,7 @@ export const FormWrapper = styled.div`
 
 export const FormTitle = styled.div`
   color: var(--primary-color);
-
+  text-align: center;
   @media only screen and ${media.xs} {
     margin-bottom: 0.625rem;
     font-size: ${FONT_SIZE.lg};

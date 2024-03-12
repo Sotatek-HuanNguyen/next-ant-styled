@@ -1,9 +1,11 @@
-import FacebookIcon from '@/assets/images/svg/icon-facebook.svg';
-import GoogleIcon from '@/assets/images/svg/icon-google.svg';
+import LogoIcon from '@/assets/images/svg/logo.svg';
 import { BaseForm } from '@/components/common/forms/base-form';
 import { useLoginMutate } from '@/hooks/features/useAuth';
 import { useFeedback } from '@/hooks/useFeedback';
 import * as Auth from '@/layouts/auth-layout/index.styles';
+import { setCredentials } from '@/stores/auth/auth.slice';
+import { useAppDispatch } from '@/stores/hooks';
+import cookies from '@/utils/cookie';
 import { Form } from 'antd';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
@@ -24,6 +26,7 @@ export const initValues: LoginFormData = {
 
 export const LoginForm: React.FC = () => {
   const { t } = useTranslation(['auth', 'commons']);
+  const dispatch = useAppDispatch();
   const [form] = Form.useForm();
   const { push } = useRouter();
   const { notification } = useFeedback();
@@ -31,10 +34,16 @@ export const LoginForm: React.FC = () => {
 
   const handleSubmit = (values: LoginFormData) => {
     mutate(values, {
-      onSuccess(data) {
-        console.log(data);
+      onSuccess(data: any) {
+        cookies.set('access_token', data?.content?.data?.accessToken);
+        dispatch(
+          setCredentials({
+            user: data?.data?.content,
+            token: data?.content?.data?.accessToken,
+          })
+        );
         push('/');
-        notification.success({ message: 'Login success' });
+        notification.success({ message: t('login.loginSuccess') });
       },
     });
   };
@@ -48,6 +57,9 @@ export const LoginForm: React.FC = () => {
         requiredMark="optional"
         initialValues={initValues}
       >
+        <S.WrapLogo>
+          <LogoIcon />
+        </S.WrapLogo>
         <Auth.FormTitle>{t('login', { ns: 'common' })}</Auth.FormTitle>
         <S.LoginDescription>{t('login.loginInfo')}</S.LoginDescription>
         <Auth.FormItem
@@ -70,7 +82,7 @@ export const LoginForm: React.FC = () => {
         >
           <Auth.FormInputPassword placeholder={t('password', { ns: 'common' })} />
         </Auth.FormItem>
-        <Auth.ActionsWrapper>
+        {/* <Auth.ActionsWrapper>
           <BaseForm.Item name="rememberMe" valuePropName="checked" noStyle>
             <Auth.FormCheckbox>
               <S.RememberMeText>{t('login.rememberMe')}</S.RememberMeText>
@@ -79,28 +91,13 @@ export const LoginForm: React.FC = () => {
           <Link href="/auth/forgot-password">
             <S.ForgotPasswordText>{t('forgotPass', { ns: 'common' })}</S.ForgotPasswordText>
           </Link>
-        </Auth.ActionsWrapper>
+        </Auth.ActionsWrapper> */}
         <BaseForm.Item noStyle>
           <Auth.SubmitButton type="primary" htmlType="submit" loading={isPending}>
             {t('login', { ns: 'common' })}
           </Auth.SubmitButton>
         </BaseForm.Item>
-        <BaseForm.Item noStyle>
-          <Auth.SocialButton type="default" htmlType="submit">
-            <Auth.SocialIconWrapper>
-              <GoogleIcon />
-            </Auth.SocialIconWrapper>
-            {t('login.googleLink')}
-          </Auth.SocialButton>
-        </BaseForm.Item>
-        <BaseForm.Item noStyle>
-          <Auth.SocialButton type="default" htmlType="submit">
-            <Auth.SocialIconWrapper>
-              <FacebookIcon />
-            </Auth.SocialIconWrapper>
-            {t('login.facebookLink')}
-          </Auth.SocialButton>
-        </BaseForm.Item>
+
         <Auth.FooterWrapper>
           <Auth.Text>
             {t('login.noAccount')}{' '}

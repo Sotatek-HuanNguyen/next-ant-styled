@@ -4,19 +4,23 @@ import { FormInstance } from 'antd';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
 
+import { useFeedback } from './useFeedback';
+
 type ARGS = {
   error: ApiError;
   form?: FormInstance;
 };
 
 export default function useLoadServerError() {
+  const { notification } = useFeedback();
   const loadServerErrors = (args: ARGS) => {
     const { error, form } = args;
 
     const isClientError =
       !Object.prototype.hasOwnProperty.call(error, 'response') && !!error.statusText;
     if (isClientError) {
-      showError({ message: error.statusText });
+      const response = error.data as ServerError;
+      notification.error({ message: response.message });
       return;
     }
 
@@ -36,8 +40,8 @@ export default function useLoadServerError() {
       attachErrorsIntoForm(data, form);
       return;
     }
-    const data = response.data as ServerError;
-    showError(data.detail || []);
+    // const data = response.data as ServerError;
+    // showError(data || []);
   };
 
   const attachErrorsIntoForm = (data: ValidationError, form: FormInstance) => {
@@ -85,7 +89,7 @@ export default function useLoadServerError() {
       message = '...';
     }
 
-    // show toast notification
+    notification.error({ message });
   };
 
   return {

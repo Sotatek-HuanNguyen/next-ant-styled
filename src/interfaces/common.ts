@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import { ReactNode } from 'react';
 
 export enum ROUTER_PATH {
-  LOGIN = '/login',
+  LOGIN = '/auth/login',
   DASHBOARD = '/dashboard',
 }
 
@@ -39,17 +39,19 @@ export type ValidationError = {
   detail: {
     [key: string]: {
       field: string;
-      key: string;
+      error: string;
       message: string;
+      statusCode: number;
+      success: boolean;
     };
   };
 };
 
 export type ServerError = {
-  detail: {
-    key: string;
-    message: string;
-  };
+  error: string;
+  message: string;
+  statusCode: number;
+  success: boolean;
 };
 
 export type ApiError = AxiosResponse<ServerError | ValidationError>;

@@ -19,7 +19,8 @@
   },
   "header": {
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "logoutSuccess": "You have logged out successfully!"
   },
   "validate": {
     "requiredField": "This field is required!",

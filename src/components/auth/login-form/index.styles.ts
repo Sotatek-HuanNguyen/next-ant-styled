@@ -25,6 +25,12 @@ export const RememberMeText = styled.span`
   color: var(--primary-color);
   font-size: ${FONT_SIZE.xs};
 `;
+export const WrapLogo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+`;
 
 export const ForgotPasswordText = styled.span`
   color: var(--text-light-color);

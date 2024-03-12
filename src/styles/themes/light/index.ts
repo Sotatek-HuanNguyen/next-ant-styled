@@ -2,11 +2,11 @@ import { BASE_COLORS } from '@/constants';
 import { shadeColor } from '@/utils';
 
 export const lightColorsTheme = {
-  primary: '#01509A',
+  primary: '#8538FF',
   primary1: '#f5f5f5',
   primaryGradient: 'linear-gradient(211.49deg, #006CCF 15.89%, #00509A 48.97%)',
   light: '#C5D3E0',
-  secondary: '#0085FF',
+  secondary: '#3b0099',
   error: '#FF5252',
   warning: '#FFB155',
   success: '#30AF5B',
@@ -66,7 +66,7 @@ export const antLightColorsTheme = {
   primary2: '#85b3cc',
   primary3: '#5e9abf',
   primary4: '#3b81b3',
-  primary5: '#1c68a6',
+  primary5: '#8538FF',
   primary6: '#01509a',
   primary7: '#003773',
   primary8: '#00224d',

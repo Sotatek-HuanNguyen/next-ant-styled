@@ -14,8 +14,8 @@ const Authentication: FC<AuthenticationProps> = ({ children }) => {
   const isAuthenticated = !!token;
 
   useEffect(() => {
-    if (!isAuthenticated && PRIVATE_ROUTE.includes(router.pathname)) router.push('/login');
-    if (isAuthenticated && router.asPath == ROUTER_PATH.LOGIN) router.push('/');
+    if (!isAuthenticated && PRIVATE_ROUTE.includes(router.pathname)) router.push(ROUTER_PATH.LOGIN);
+    if (isAuthenticated && router.asPath == ROUTER_PATH.LOGIN) router.push(ROUTER_PATH.DASHBOARD);
   }, [isAuthenticated, router]);
 
   return <>{children}</>;
