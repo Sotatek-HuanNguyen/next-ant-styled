@@ -1,24 +1,24 @@
-import { useAppSelector } from '@/stores/hooks';
+import { PRIVATE_ROUTE } from '@/constants';
+import { ROUTER_PATH } from '@/interfaces';
+import cookies from '@/utils/cookie';
 import { useRouter } from 'next/router';
-import React, { FC, ReactElement, useEffect } from 'react';
+import React, { FC, ReactNode, useEffect } from 'react';
 
-type withAuthProps = (Component?: FC | any) => FC;
+interface AuthenticationProps {
+  children: ReactNode;
+}
 
-const withAuth: withAuthProps = (Component) => {
-  const Auth: FC = (): ReactElement | null => {
-    const router = useRouter();
-    const { token } = useAppSelector((state) => state.auth);
-    const isAuthenticated = !!token;
+const Authentication: FC<AuthenticationProps> = ({ children }) => {
+  const router = useRouter();
+  const token = cookies.get('access_token');
+  const isAuthenticated = !!token;
 
-    useEffect(() => {
-      if (!isAuthenticated) router.push('/login');
-      if (isAuthenticated && router.asPath == '/login') router.push('/');
-    });
+  useEffect(() => {
+    if (!isAuthenticated && PRIVATE_ROUTE.includes(router.pathname)) router.push('/login');
+    if (isAuthenticated && router.asPath == ROUTER_PATH.LOGIN) router.push('/');
+  }, [isAuthenticated, router]);
 
-    return isAuthenticated ? <Component /> : <></>;
-  };
-
-  return Auth;
+  return <>{children}</>;
 };
 
-export default withAuth;
+export default Authentication;

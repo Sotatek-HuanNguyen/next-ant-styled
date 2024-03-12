@@ -1,6 +1,11 @@
 import { AxiosResponse } from 'axios';
 import { ReactNode } from 'react';
 
+export enum ROUTER_PATH {
+  LOGIN = '/login',
+  DASHBOARD = '/dashboard',
+}
+
 export enum RESPONSE_CODE {
   SUCCESS = 200,
   UNAUTHORIZED = 401,

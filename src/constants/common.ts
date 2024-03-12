@@ -1,4 +1,6 @@
-import { CurrencyTypeEnum } from '@/interfaces';
+import { CurrencyTypeEnum, ROUTER_PATH } from '@/interfaces';
+
+export const PRIVATE_ROUTE: string[] = [ROUTER_PATH.DASHBOARD];
 
 export const SCREENS = {
   DESKTOP: 1024,

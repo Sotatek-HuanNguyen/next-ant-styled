@@ -1,3 +1,4 @@
+import Authentication from '@/hoc/authentication';
 import { store } from '@/stores/store';
 import { getThemeConfig } from '@/styles/theme-config';
 import GlobalStyle from '@/styles/theme-global';
@@ -35,10 +36,12 @@ function App({ Component, pageProps }: Props) {
           <GlobalStyle />
           <ConfigProvider theme={getThemeConfig('light')}>
             <FeedbackProvider>
-              <Layout>
-                <NextNProgress />
-                <Component {...pageProps} />
-              </Layout>
+              <Authentication>
+                <Layout>
+                  <NextNProgress />
+                  <Component {...pageProps} />
+                </Layout>
+              </Authentication>
             </FeedbackProvider>
           </ConfigProvider>
         </PersistGate>
