@@ -30,6 +30,6 @@ export interface IUser {
   collection_address: string[];
 }
 
-export interface GetUsersResponseData {
+export interface GetUsersResponse {
   users: IUser[];
 }

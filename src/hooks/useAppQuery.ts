@@ -1,3 +1,4 @@
+import { ApiError } from '@/interfaces';
 import {
   QueryClient,
   QueryKey,
@@ -6,6 +7,8 @@ import {
   UseQueryResult,
   useQuery,
 } from '@tanstack/react-query';
+
+import useLoadServerError from './useLoadServerError';
 
 export type UseAppQueryResult<TData, TError> = Omit<UseQueryResult<TData, TError>, 'refetch'> & {
   refetch: (
@@ -22,6 +25,8 @@ export default function useAppQuery<
   options: UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
   queryClient?: QueryClient
 ): UseAppQueryResult<TData, TError> {
+  const { loadServerErrors } = useLoadServerError();
+
   const query = useQuery(options, queryClient);
 
   const safeRefetch = (
@@ -33,6 +38,10 @@ export default function useAppQuery<
 
     return Promise.resolve();
   };
+
+  if (query.isError) {
+    loadServerErrors({ error: query.error as ApiError });
+  }
 
   return { ...query, refetch: safeRefetch };
 }

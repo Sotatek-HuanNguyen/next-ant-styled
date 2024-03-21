@@ -1,5 +1,5 @@
 import { request } from '@/api/request';
-import { GetUsersRequest, GetUsersResponseData, ResponseData } from '@/interfaces';
+import { GetUsersRequest, GetUsersResponse, ResponseData } from '@/interfaces';
 
 export const getUsers = (params: GetUsersRequest) =>
-  request.get<GetUsersRequest, ResponseData<GetUsersResponseData>>('/admin/users', params);
+  request.get<GetUsersRequest, ResponseData<GetUsersResponse>>('/admin/users', params);

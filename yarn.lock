@@ -2494,6 +2494,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-csv@npm:^1.1.10":
+  version: 1.1.10
+  resolution: "@types/react-csv@npm:1.1.10"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 58d300aacccc70c67d2df538726983b4483f3b446db67687baa0026bd4d562cbb956a47eab49516bbe22b9bf8e9b92d1e28f608361a77b2ffa36825bd9c72295
+  languageName: node
+  linkType: hard
+
 "@types/react-dom@npm:18.2.6":
   version: 18.2.6
   resolution: "@types/react-dom@npm:18.2.6"
@@ -3294,6 +3303,7 @@ __metadata:
     "@types/lodash": "npm:^4"
     "@types/node": "npm:20.3.3"
     "@types/react": "npm:18.2.14"
+    "@types/react-csv": "npm:^1.1.10"
     "@types/react-dom": "npm:18.2.6"
     "@types/react-slick": "npm:^0"
     "@types/styled-components": "npm:^5.1.34"

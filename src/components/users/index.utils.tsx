@@ -23,6 +23,8 @@ interface Utils {
   loading: boolean;
   params: IParams;
   tableData: UserTableState;
+  dataDownload: IUser[];
+  loadingDownload: boolean;
   options: (BaseOptionType | DefaultOptionType)[];
   columns: ColumnsType<IUser>;
   handleParamsChange: (key: string, value: unknown) => void;
@@ -47,6 +49,10 @@ export default function useUsers(): Utils {
   const { t } = useTranslation(['users']);
   const [params, setParams] = useState<IParams>(inittialParams);
   const { data, isLoading } = useGetUsers(pickBy(params));
+  const { data: allUsers, isLoading: loadingDownload } = useGetUsers({
+    page: 1,
+    pageSize: data?.data?.pagination?.total,
+  });
 
   const tableData = useMemo(() => {
     return {
@@ -67,8 +73,6 @@ export default function useUsers(): Utils {
   ];
 
   const handleTableChange = (pagination: Pagination) => {
-    // fetch data
-    console.log('🚀 ~ handleTableChange ~ pagination:', pagination);
     setParams((prev) => {
       return {
         ...prev,
@@ -174,6 +178,8 @@ export default function useUsers(): Utils {
     params,
     options,
     tableData,
+    dataDownload: allUsers?.data?.users || [],
+    loadingDownload,
     columns,
     handleParamsChange,
     handleTableChange,
