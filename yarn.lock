@@ -3323,6 +3323,7 @@ __metadata:
     nextjs-progressbar: "npm:^0.0.16"
     prettier: "npm:^2.8.8"
     react: "npm:18.2.0"
+    react-csv: "npm:^2.2.2"
     react-dom: "npm:18.2.0"
     react-i18next: "npm:^13.0.1"
     react-infinite-scroll-component: "npm:^6.1.0"
@@ -7025,6 +7026,13 @@ __metadata:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
   checksum: 60b4a578ca3ad6d8c10075e10107e9d04596f9cec48f54155c6fc56a0b51d75a176b1c8b3341951a8ead48226b23f83785435c7777d6fba60cedbe8377426161
+  languageName: node
+  linkType: hard
+
+"react-csv@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "react-csv@npm:2.2.2"
+  checksum: 287e7ba2085a32a0e65d7a19b9e063e43f06f75ab6ebc18bb52b518007a1d6ec5f5ce33fc7c4e290e3ea41cfb251657b6e62aadadc8d7ffcef7e53d43bf3eb69
   languageName: node
   linkType: hard
 

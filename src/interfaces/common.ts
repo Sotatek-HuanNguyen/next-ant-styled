@@ -1,3 +1,4 @@
+import { SORT_TYPE } from '@/constants';
 import { AxiosResponse } from 'axios';
 import { ReactNode } from 'react';
 
@@ -18,15 +19,21 @@ export enum RESPONSE_CODE {
 
 export type PaginationParams = {
   page?: number;
-  size?: number;
-  order?: 'asc' | 'desc';
+  pageSize?: number;
+  sortField?: string;
+  sortBy?: keyof typeof SORT_TYPE | null;
 };
 
 export type MetaData = {
-  total?: number;
-  page?: number;
-  size?: number;
-  total_pages?: number;
+  data?: {
+    pagination?: {
+      total?: number;
+      last_page?: number;
+      per_page?: number;
+      current_page?: number;
+      total_pages?: number;
+    };
+  };
 };
 
 export type ResponseData<T> = MetaData & {
@@ -63,3 +70,9 @@ export type WithChildrenProps<T = undefined> = T extends undefined
   : T & {
       children?: ReactNode;
     };
+
+export interface Pagination {
+  current?: number;
+  pageSize?: number;
+  total?: number;
+}

@@ -51,3 +51,14 @@ export interface LoginRequest {
   email: string;
   password: string;
 }
+
+export interface LoginResponse {
+  accessToken: string;
+  email: string;
+  expired_access: string;
+  expired_refresh: string;
+  id: number;
+  name: string;
+  refreshToken: string;
+  type: string;
+}

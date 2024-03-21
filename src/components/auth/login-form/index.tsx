@@ -2,6 +2,7 @@ import LogoIcon from '@/assets/images/svg/logo.svg';
 import { BaseForm } from '@/components/common/forms/base-form';
 import { useLoginMutate } from '@/hooks/features/useAuth';
 import { useFeedback } from '@/hooks/useFeedback';
+import { LoginResponse, ResponseData } from '@/interfaces';
 import * as Auth from '@/layouts/auth-layout/index.styles';
 import { setCredentials } from '@/stores/auth/auth.slice';
 import { useAppDispatch } from '@/stores/hooks';
@@ -34,12 +35,12 @@ export const LoginForm: React.FC = () => {
 
   const handleSubmit = (values: LoginFormData) => {
     mutate(values, {
-      onSuccess(data: any) {
-        cookies.set('access_token', data?.content?.data?.accessToken);
+      onSuccess(responses: ResponseData<LoginResponse>) {
+        cookies.set('access_token', responses.data?.accessToken);
         dispatch(
           setCredentials({
-            user: data?.data?.content,
-            token: data?.content?.data?.accessToken,
+            user: responses.data,
+            token: responses.data?.accessToken,
           })
         );
         push('/');

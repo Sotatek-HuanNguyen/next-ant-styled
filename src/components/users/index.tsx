@@ -1,4 +1,5 @@
 import SearchIcon from '@/assets/images/svg/icon-search-1.svg';
+import { debounce } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -8,7 +9,8 @@ import useUsers from './index.utils';
 
 const Users: React.FC = () => {
   const { t } = useTranslation(['users']);
-  const { options, columns, tableData, handleTableChange } = useUsers();
+  const { loading, params, options, columns, tableData, handleParamsChange, handleTableChange } =
+    useUsers();
 
   return (
     <S.TablesWrapper>
@@ -19,8 +21,16 @@ const Users: React.FC = () => {
       >
         <S.WrapHeader>
           <S.Action>
-            <S.Select options={options} />
-            <S.Input prefix={<SearchIcon />} placeholder={t('userManagement.search')} />
+            <S.Select
+              options={options}
+              value={params.filterUser}
+              onChange={(option) => handleParamsChange('filterUser', option)}
+            />
+            <S.Input
+              prefix={<SearchIcon />}
+              placeholder={t('userManagement.search')}
+              onChange={debounce((e) => handleParamsChange('search', e.target.value), 300)}
+            />
           </S.Action>
           <S.Button type={'primary'}>{t('userManagement.export')}</S.Button>
         </S.WrapHeader>
@@ -30,7 +40,7 @@ const Users: React.FC = () => {
           rowKey={'id'}
           dataSource={tableData.data}
           pagination={tableData.pagination}
-          loading={tableData.loading}
+          loading={loading}
           onChange={handleTableChange}
           scroll={{ x: 800 }}
           bordered

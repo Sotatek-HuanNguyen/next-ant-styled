@@ -1,20 +1,17 @@
 import EyeIcon from '@/assets/images/svg/eye.svg';
-import { Priority } from '@/constants';
+import { DATE_FORMAT, Priority } from '@/constants';
+import { useGetUsers } from '@/hooks/features/useUsers';
+import { IParams, IUser, Pagination } from '@/interfaces';
 import { BaseOptionType, DefaultOptionType } from 'antd/es/select';
 import { ColumnsType } from 'antd/es/table';
+import dayjs from 'dayjs';
+import { pickBy } from 'lodash';
 import { useTranslation } from 'next-i18next';
-import { useState } from 'react';
-
-export interface Pagination {
-  current?: number;
-  pageSize?: number;
-  total?: number;
-}
+import { useMemo, useState } from 'react';
 
 interface UserTableState {
-  data: BasicTableRow[];
+  data: IUser[];
   pagination: Pagination;
-  loading: boolean;
 }
 
 export interface Tag {
@@ -22,179 +19,148 @@ export interface Tag {
   priority: Priority;
 }
 
-export interface BasicTableRow {
-  id: string;
-  no: number;
-  name: string;
-  kanaName: string;
-  company: string;
-  email: string;
-  gender: string;
-  birthday: string;
-  country: string;
-  phoneNumber: string;
-  magazineSubscription: string;
-  purchaseHistory: string;
-}
-
 interface Utils {
+  loading: boolean;
+  params: IParams;
   tableData: UserTableState;
   options: (BaseOptionType | DefaultOptionType)[];
-  columns: ColumnsType<BasicTableRow>;
+  columns: ColumnsType<IUser>;
+  handleParamsChange: (key: string, value: unknown) => void;
   handleTableChange: (pagination: Pagination) => void;
 }
 
-const initialData = [
-  {
-    id: '1',
-    no: 1,
-    name: 'Name',
-    kanaName: 'Kana Name',
-    company: 'Company',
-    email: 'Email',
-    gender: 'Gender',
-    birthday: 'Birthday',
-    country: 'Country',
-    phoneNumber: 'Phone Number',
-    magazineSubscription: 'Magazine Subscription',
-    purchaseHistory: 'Purchase history',
-  },
-  {
-    id: '2',
-    no: 2,
-    name: 'Name',
-    kanaName: 'Kana Name',
-    company: 'Company',
-    email: 'Email',
-    gender: 'Gender',
-    birthday: 'Birthday',
-    country: 'Country',
-    phoneNumber: 'Phone Number',
-    magazineSubscription: 'Magazine Subscription',
-    purchaseHistory: 'Purchase history',
-  },
-];
-
 const initialPagination: Pagination = {
   current: 1,
-  pageSize: 5,
+  pageSize: 10,
+};
+
+const inittialParams = {
+  page: 1,
+  pageSize: initialPagination.pageSize,
+  sortBy: null,
+  sortField: '',
+  search: '',
+  filterUser: 'fullName',
 };
 
 export default function useUsers(): Utils {
   const { t } = useTranslation(['users']);
-  const [tableData] = useState<UserTableState>({
-    data: initialData,
-    pagination: initialPagination,
-    loading: false,
-  });
+  const [params, setParams] = useState<IParams>(inittialParams);
+  const { data, isLoading } = useGetUsers(pickBy(params));
 
-  const options = [{ value: 'name', label: 'Name' }];
+  const tableData = useMemo(() => {
+    return {
+      data: data?.data?.users || [],
+      pagination: {
+        current: Number(data?.data.pagination?.current_page) || initialPagination.current,
+        pageSize: data?.data?.pagination?.per_page || initialPagination.pageSize,
+        total: data?.data?.pagination?.total || initialPagination.total,
+      },
+    };
+  }, [data]);
+
+  const options = [
+    { value: 'fullName', label: t('userManagement.name') },
+    { value: 'kanaJapanese', label: t('userManagement.kanaName') },
+    { value: 'companyName', label: t('userManagement.company') },
+    { value: 'nationality', label: t('userManagement.country') },
+  ];
 
   const handleTableChange = (pagination: Pagination) => {
     // fetch data
     console.log('🚀 ~ handleTableChange ~ pagination:', pagination);
+    setParams((prev) => {
+      return {
+        ...prev,
+        page: pagination.current,
+      };
+    });
   };
 
-  const columns: ColumnsType<BasicTableRow> = [
+  const handleParamsChange = (key: string, value: unknown) => {
+    setParams((prev) => {
+      return { ...prev, page: 1, [key]: value };
+    });
+  };
+
+  const columns: ColumnsType<IUser> = [
     {
-      title: t('userManagement.no'),
-      dataIndex: 'no',
-      key: 'no',
+      title: t('userManagement.id'),
+      dataIndex: 'accountId',
+      key: 'accountId',
+      width: '5%',
       render: (text: string) => <span>{text}</span>,
-      filterMode: 'tree',
-      filterSearch: true,
-      filters: [
-        {
-          text: t('common.firstName'),
-          value: 'firstName',
-          children: [
-            {
-              text: 'Joe',
-              value: 'Joe',
-            },
-            {
-              text: 'Pavel',
-              value: 'Pavel',
-            },
-            {
-              text: 'Jim',
-              value: 'Jim',
-            },
-            {
-              text: 'Josh',
-              value: 'Josh',
-            },
-          ],
-        },
-        {
-          text: t('common.lastName'),
-          value: 'lastName',
-          children: [
-            {
-              text: 'Green',
-              value: 'Green',
-            },
-            {
-              text: 'Black',
-              value: 'Black',
-            },
-            {
-              text: 'Brown',
-              value: 'Brown',
-            },
-          ],
-        },
-      ],
     },
     {
       title: t('userManagement.name'),
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'fullName',
+      key: 'fullName',
+      width: '10%',
     },
     {
       title: t('userManagement.kanaName'),
-      dataIndex: 'kanaName',
-      key: 'kanaName',
+      dataIndex: 'kanaJapanese',
+      key: 'kanaJapanese',
+      width: '10%',
     },
     {
       title: t('userManagement.company'),
-      dataIndex: 'company',
-      key: 'company',
+      dataIndex: 'companyName',
+      key: 'companyName',
+      width: '10%',
     },
     {
       title: t('userManagement.email'),
       dataIndex: 'email',
       key: 'email',
+      width: '10%',
     },
     {
       title: t('userManagement.gender'),
       dataIndex: 'gender',
       key: 'gender',
+      width: '5%',
     },
     {
       title: t('userManagement.birthday'),
-      dataIndex: 'birthday',
-      key: 'birthday',
+      dataIndex: 'birth',
+      key: 'birth',
+      width: '10%',
+      render: (value) => {
+        return <> {dayjs(value).format(DATE_FORMAT.BASIC)}</>;
+      },
     },
     {
       title: t('userManagement.country'),
-      dataIndex: 'country',
-      key: 'country',
+      dataIndex: 'nationality',
+      key: 'nationality',
+      width: '10%',
     },
     {
-      title: t('userManagement.phoneNumber'),
-      dataIndex: 'phoneNumber',
-      key: 'phoneNumber',
+      title: t('userManagement.shippingAddress'),
+      dataIndex: 'collection_address',
+      key: 'collection_address',
+      width: '10%',
+      render: (value) => {
+        if (value.lenght > 0)
+          return <>{value?.filter((item: any) => item?.is_default === true)?.address}</>;
+        return <>---</>;
+      },
     },
     {
       title: t('userManagement.magazineSubscription'),
-      dataIndex: 'magazineSubscription',
-      key: 'magazineSubscription',
+      dataIndex: 'receive_mail',
+      key: 'receive_mail',
+      width: '10%',
+      render: (value) => {
+        return <> {value ? t('userManagement.yes') : t('userManagement.no')}</>;
+      },
     },
     {
       title: t('userManagement.purchaseHistory'),
       dataIndex: 'purchaseHistory',
       key: 'purchaseHistory',
+      width: '10%',
       render: () => (
         <div>
           <EyeIcon />
@@ -204,9 +170,12 @@ export default function useUsers(): Utils {
   ];
 
   return {
+    loading: isLoading,
+    params,
     options,
     tableData,
     columns,
+    handleParamsChange,
     handleTableChange,
   };
 }

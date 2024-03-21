@@ -69,6 +69,7 @@
     "next-i18next": "^14.0.0",
     "nextjs-progressbar": "^0.0.16",
     "prettier": "^2.8.8",
+    "react-csv": "^2.2.2",
     "react-infinite-scroll-component": "^6.1.0",
     "react-responsive": "^9.0.2",
     "react-slick": "^0.30.2",

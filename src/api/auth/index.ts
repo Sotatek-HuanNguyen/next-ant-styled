@@ -1,5 +1,5 @@
 import { request } from '@/api/request';
-import { LoginRequest, ResponseData } from '@/interfaces';
+import { LoginRequest, LoginResponse, ResponseData } from '@/interfaces';
 
 export const login = (body: LoginRequest) =>
-  request.post<LoginRequest, ResponseData<Array<string>>>('/admin/sign-in', body);
+  request.post<LoginRequest, ResponseData<LoginResponse>>('/admin/sign-in', body);

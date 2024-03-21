@@ -30,6 +30,19 @@ export enum Priority {
   HIGH,
 }
 
+export enum SORT_TYPE {
+  DESC = 'desc',
+  desc = 'desc',
+  ASC = 'ASC',
+  asc = 'asc',
+}
+
+export const DATE_FORMAT = {
+  MONTH_YEAR: 'MM/yy',
+  BASIC: 'DD/MM/YYYY',
+  DATE_FULL: 'YYYY/MM/DD HH:mm',
+};
+
 export const currencies = {
   [CurrencyTypeEnum.USD]: {
     text: 'USD',

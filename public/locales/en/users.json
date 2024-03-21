@@ -3,7 +3,7 @@
     "userManagement": "User management",
     "export": "Export",
     "search": "Search",
-    "no": "No.",
+    "id": "ID",
     "name": "Name",
     "kanaName": "Kana Name",
     "company": "Company",
@@ -12,7 +12,10 @@
     "birthday": "Birthday",
     "country": "Country",
     "phoneNumber": "Phone Number",
+    "shippingAddress": "Shipping Address",
     "magazineSubscription": "Magazine Subscription",
-    "purchaseHistory": "Purchase history"
+    "purchaseHistory": "Purchase history",
+    "yes": "Yes",
+    "no": "No"
   }
 }
