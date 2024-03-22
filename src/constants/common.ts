@@ -39,7 +39,7 @@ export enum SORT_TYPE {
 
 export const DATE_FORMAT = {
   MONTH_YEAR: 'MM/yy',
-  BASIC: 'DD/MM/YYYY',
+  BASIC: 'DD-MM-YYYY',
   DATE_FULL: 'YYYY/MM/DD HH:mm',
 };
 

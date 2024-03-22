@@ -1,9 +1,10 @@
 import EyeIcon from '@/assets/images/svg/eye.svg';
-import { DATE_FORMAT, Priority } from '@/constants';
+import { DATE_FORMAT } from '@/constants';
 import { useGetUsers } from '@/hooks/features/useUsers';
 import { IParams, IUser, Pagination } from '@/interfaces';
 import { BaseOptionType, DefaultOptionType } from 'antd/es/select';
 import { ColumnsType } from 'antd/es/table';
+import { ColumnTitle, Key } from 'antd/es/table/interface';
 import dayjs from 'dayjs';
 import { pickBy } from 'lodash';
 import { useTranslation } from 'next-i18next';
@@ -14,9 +15,9 @@ interface UserTableState {
   pagination: Pagination;
 }
 
-export interface Tag {
-  value: string;
-  priority: Priority;
+export interface ICollum {
+  label: ColumnTitle<IUser>;
+  key: Key | undefined;
 }
 
 interface Utils {
@@ -27,6 +28,7 @@ interface Utils {
   loadingDownload: boolean;
   options: (BaseOptionType | DefaultOptionType)[];
   columns: ColumnsType<IUser>;
+  columnsCSV: ICollum[];
   handleParamsChange: (key: string, value: unknown) => void;
   handleTableChange: (pagination: Pagination) => void;
 }
@@ -173,6 +175,15 @@ export default function useUsers(): Utils {
     },
   ];
 
+  const columnsCSV = columns
+    .filter((column) => column.key !== 'purchaseHistory')
+    .map((column) => {
+      return {
+        label: column.title,
+        key: column.key,
+      };
+    });
+
   return {
     loading: isLoading,
     params,
@@ -181,6 +192,7 @@ export default function useUsers(): Utils {
     dataDownload: allUsers?.data?.users || [],
     loadingDownload,
     columns,
+    columnsCSV,
     handleParamsChange,
     handleTableChange,
   };

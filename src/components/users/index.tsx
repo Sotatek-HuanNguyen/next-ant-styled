@@ -5,6 +5,7 @@ import { debounce } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { CSVLink } from 'react-csv';
+import { LabelKeyObject } from 'react-csv/lib/core';
 
 import { BaseTable } from '../common/base-table';
 import * as S from './index.styles';
@@ -17,6 +18,7 @@ const Users: React.FC = () => {
     params,
     options,
     columns,
+    columnsCSV,
     tableData,
     dataDownload,
     handleParamsChange,
@@ -43,7 +45,11 @@ const Users: React.FC = () => {
               onChange={debounce((e) => handleParamsChange('search', e.target.value), 300)}
             />
           </S.Action>
-          <CSVLink data={dataDownload} filename={'USERS' + dayjs().format(DATE_FORMAT.DATE_FULL)}>
+          <CSVLink
+            data={dataDownload}
+            filename={'USERS-' + dayjs().format(DATE_FORMAT.BASIC)}
+            headers={columnsCSV as LabelKeyObject[]}
+          >
             <S.Button type={'primary'}>{t('userManagement.export')}</S.Button>
           </CSVLink>
         </S.WrapHeader>
