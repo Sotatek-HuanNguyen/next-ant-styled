@@ -4,7 +4,7 @@ import { BaseCheckbox } from '@/components/common/base-checkbox';
 import { BaseForm } from '@/components/common/forms/base-form';
 import { BaseInput as CommonInput } from '@/components/common/inputs/base-input';
 import { InputPassword as CommonInputPassword } from '@/components/common/inputs/password-input';
-import { BORDER_RADIUS, FONT_SIZE, FONT_WEIGHT, media } from '@/constants';
+import { BASE_COLORS, BORDER_RADIUS, FONT_SIZE, FONT_WEIGHT, media } from '@/constants';
 import { LeftOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
@@ -109,12 +109,17 @@ export const FormItem = styled(BaseForm.Item)`
   &.ant-form-item-has-feedback .ant-input-affix-wrapper .ant-input-suffix {
     padding-right: 1.5rem;
   }
+
+  .ant-input {
+    &::placeholder {
+      color: ${BASE_COLORS.gray};
+    }
+  }
 `;
 
 export const FormInput = styled(CommonInput)`
   color: var(--text-main-color);
   background: transparent;
-
   & input.ant-input {
     background: transparent;
   }
@@ -123,7 +128,6 @@ export const FormInput = styled(CommonInput)`
 export const FormInputPassword = styled(CommonInputPassword)`
   color: var(--text-main-color);
   background: transparent;
-
   & input.ant-input {
     background: transparent;
   }

@@ -40,10 +40,13 @@ export const Table = styled(AntdTable)`
   .ant-pagination-next,
   .ant-pagination-jump-prev,
   .ant-pagination-jump-next,
+  .ant-select-selector,
+  .ant-select-selection-search-input,
+  .ant-select-selection-item,
   .ant-pagination-item {
     min-width: 2.0625rem;
-    height: 2.0625rem;
-    line-height: 2.0625rem;
+    height: 2.0625rem !important;
+    line-height: 2.0625rem !important;
     border-radius: 0;
     font-size: ${FONT_SIZE.xs};
   }

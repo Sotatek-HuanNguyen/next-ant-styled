@@ -16,6 +16,11 @@
     "magazineSubscription": "Magazine Subscription",
     "purchaseHistory": "Purchase history",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "genders": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other"
+    }
   }
 }

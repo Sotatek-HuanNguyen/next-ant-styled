@@ -29,6 +29,7 @@ interface Utils {
   options: (BaseOptionType | DefaultOptionType)[];
   columns: ColumnsType<IUser>;
   columnsCSV: ICollum[];
+  getGenderName: (genderId?: number) => void;
   handleParamsChange: (key: string, value: unknown) => void;
   handleTableChange: (pagination: Pagination) => void;
 }
@@ -71,8 +72,28 @@ export default function useUsers(): Utils {
     { value: 'fullName', label: t('userManagement.name') },
     { value: 'kanaJapanese', label: t('userManagement.kanaName') },
     { value: 'companyName', label: t('userManagement.company') },
-    { value: 'nationality', label: t('userManagement.country') },
+    { value: 'country', label: t('userManagement.country') },
   ];
+
+  const genders = [
+    {
+      id: 0,
+      label: t('userManagement.genders.male'),
+    },
+    {
+      id: 1,
+      label: t('userManagement.genders.female'),
+    },
+    {
+      id: 2,
+      label: t('userManagement.genders.other'),
+    },
+  ];
+
+  const getGenderName = (genderId?: number) => {
+    if (!genderId) return;
+    return genders.find((gender) => gender.id == genderId)?.label;
+  };
 
   const handleTableChange = (pagination: Pagination) => {
     setParams((prev) => {
@@ -126,6 +147,10 @@ export default function useUsers(): Utils {
       dataIndex: 'gender',
       key: 'gender',
       width: '5%',
+      render: (value) => {
+        console.log('value', getGenderName(value));
+        return <>{getGenderName(value)}</>;
+      },
     },
     {
       title: t('userManagement.birthday'),
@@ -138,9 +163,14 @@ export default function useUsers(): Utils {
     },
     {
       title: t('userManagement.country'),
-      dataIndex: 'nationality',
-      key: 'nationality',
+      dataIndex: 'collection_address',
+      key: 'collection_address',
       width: '10%',
+      render: (value) => {
+        if (value.length > 0)
+          return <>{value?.find((item: any) => item?.is_default === true)?.country}</>;
+        return <>---</>;
+      },
     },
     {
       title: t('userManagement.shippingAddress'),
@@ -148,8 +178,8 @@ export default function useUsers(): Utils {
       key: 'collection_address',
       width: '10%',
       render: (value) => {
-        if (value.lenght > 0)
-          return <>{value?.filter((item: any) => item?.is_default === true)?.address}</>;
+        if (value.length > 0)
+          return <>{value?.find((item: any) => item?.is_default === true)?.address}</>;
         return <>---</>;
       },
     },
@@ -193,6 +223,7 @@ export default function useUsers(): Utils {
     loadingDownload,
     columns,
     columnsCSV,
+    getGenderName,
     handleParamsChange,
     handleTableChange,
   };

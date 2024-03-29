@@ -9,7 +9,6 @@ import { useAppDispatch } from '@/stores/hooks';
 import cookies from '@/utils/cookie';
 import { Form } from 'antd';
 import { useTranslation } from 'next-i18next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -72,6 +71,10 @@ export const LoginForm: React.FC = () => {
               type: 'email',
               message: t('validate.notValidEmail', { ns: 'common' }),
             },
+            {
+              max: 64,
+              message: t('validate.max', { ns: 'common', length: 64 }),
+            },
           ]}
         >
           <Auth.FormInput placeholder={t('email', { ns: 'common' })} />
@@ -99,14 +102,14 @@ export const LoginForm: React.FC = () => {
           </Auth.SubmitButton>
         </BaseForm.Item>
 
-        <Auth.FooterWrapper>
+        {/* <Auth.FooterWrapper>
           <Auth.Text>
             {t('login.noAccount')}{' '}
             <Link href="/auth/register">
               <Auth.LinkText>{t('here', { ns: 'common' })}</Auth.LinkText>
             </Link>
           </Auth.Text>
-        </Auth.FooterWrapper>
+        </Auth.FooterWrapper> */}
       </BaseForm>
     </Auth.FormWrapper>
   );

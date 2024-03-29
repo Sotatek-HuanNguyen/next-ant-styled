@@ -1,9 +1,9 @@
 import { BaseFormItem } from '@/components/common/forms/components/base-form-item';
 import { BaseFormList } from '@/components/common/forms/components/base-form-list';
 import { BaseFormTitle } from '@/components/common/forms/components/base-form-title';
-import { useFeedback } from '@/hooks/useFeedback';
+// import { useFeedback } from '@/hooks/useFeedback';
 import { Form, FormInstance } from 'antd';
-import { ValidateErrorEntity } from 'rc-field-form/lib/interface';
+// import { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import React, { ComponentProps } from 'react';
 
 export type BaseFormProps = Omit<ComponentProps<typeof Form>, 'onFinish'> & {
@@ -25,18 +25,16 @@ export const BaseForm: IBaseForm<BaseFormProps> = ({
   layout = 'vertical',
   ...props
 }) => {
-  const { notification } = useFeedback();
+  // const { notification } = useFeedback();
 
-  const onFinishFailedDefault = (error: ValidateErrorEntity<unknown>) => {
-    notification.error({
-      message: 'Error',
-      description: error.errorFields[0].errors,
-    });
-  };
+  // const onFinishFailedDefault = (error: ValidateErrorEntity<unknown>) => {
+  //   notification.error({
+  //     message: 'Error',
+  //     description: error.errorFields[0].errors,
+  //   });
+  // };
 
-  return (
-    <Form onFinishFailed={onFinishFailed || onFinishFailedDefault} layout={layout} {...props} />
-  );
+  return <Form onFinishFailed={onFinishFailed} layout={layout} {...props} />;
 };
 
 BaseForm.Title = BaseFormTitle;

@@ -23,7 +23,8 @@
     "logoutSuccess": "You have logged out successfully!"
   },
   "validate": {
-    "requiredField": "This field is required!",
-    "notValidEmail": "Please input a valid email address!"
+    "requiredField": "This field cannot be empty.",
+    "notValidEmail": "Invalid format email",
+    "max": "This field cannot exceed {{length}} characters"
   }
 }
