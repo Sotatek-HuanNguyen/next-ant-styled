@@ -1,5 +1,5 @@
 {
-  "name": "card_secret_fe",
+  "name": "next-codebase",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -76,5 +76,6 @@
     "react-slick": "^0.30.2",
     "react-verification-input": "2.0.3",
     "typeface-montserrat": "^1.1.13"
-  }
+  },
+  "packageManager": "yarn@4.1.1"
 }

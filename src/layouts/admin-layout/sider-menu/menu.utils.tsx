@@ -23,14 +23,14 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     icon: <UserOutlined />,
   },
   {
-    title: 'sider.shipmentManagement',
-    key: 'shipment',
+    title: 'UI Components',
+    key: 'components',
     icon: <FormOutlined />,
     children: [
       {
-        title: 'sider.orderManagement',
+        title: 'Form',
         key: 'order',
-        url: '/shipment/order',
+        url: '/ui-components',
       },
     ],
   },
