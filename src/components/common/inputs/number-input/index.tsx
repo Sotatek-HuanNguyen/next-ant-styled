@@ -5,7 +5,7 @@ import * as S from './index.styles';
 
 export interface InputNumberProps extends AntdInputNumberProps {
   block?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 // eslint-disable-next-line react/display-name

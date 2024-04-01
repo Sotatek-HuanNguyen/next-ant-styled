@@ -32,6 +32,21 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
         key: 'order',
         url: '/ui-components',
       },
+      {
+        title: 'Alert',
+        key: 'alerts',
+        url: '/ui-components/alert',
+      },
+      {
+        title: 'Avatar',
+        key: 'avatar',
+        url: '/ui-components/avatar',
+      },
+      {
+        title: 'AutoComplete',
+        key: 'auto-complete',
+        url: '/ui-components/auto-complete',
+      },
     ],
   },
 ];
