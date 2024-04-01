@@ -34,7 +34,7 @@ const mockVal = (str: string, repeat = 1) => ({
   label: str.repeat(repeat),
 });
 
-const DashBoard = () => {
+const ExamplePage = () => {
   const { t } = useTranslation(['forms', 'common']);
 
   const [options, setOptions] = useState<{ value: string; label: string }[]>([]);
@@ -148,6 +148,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   },
 });
 
-DashBoard.layout = AdminLayout;
+ExamplePage.layout = AdminLayout;
 
-export default DashBoard;
+export default ExamplePage;

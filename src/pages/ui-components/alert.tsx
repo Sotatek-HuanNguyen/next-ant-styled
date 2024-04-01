@@ -20,7 +20,7 @@ const Card = styled(S.Card)`
   }
 `;
 
-const DashBoard = () => {
+const ExamplePage = () => {
   const { t } = useTranslation(['forms', 'common']);
   return (
     <>
@@ -138,6 +138,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   },
 });
 
-DashBoard.layout = AdminLayout;
+ExamplePage.layout = AdminLayout;
 
-export default DashBoard;
+export default ExamplePage;
